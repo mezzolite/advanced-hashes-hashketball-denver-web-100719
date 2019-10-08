@@ -1,4 +1,4 @@
-require "pry"
+require 'pry'
 
 def game_hash()
   game_hash = {}
@@ -203,30 +203,22 @@ def most_points_scored
   best_player
 end
 
-# def winning_team 
-#   home_points = game_hash[:home][:players][:points].reduce(:+)
-#   away_points = game_hash[:away][:players][:points].reduce(:+)
-#   best_team = []
-#   if home_points > away_points
-#     return best_team = game_hash[:home][:team_name]
-#   else
-#     return best_team = game_hash[:away][:team_name]
-#   end
-# end
-
-def winning_team
-  total_points = 0
-  win_team = ''
-  game_hash.each do |location, team|
-    team_points = 0
-    team_name = game_hash[location][:team_name]
-    team[:players].each do |player|
-      points = player[:points]
-      team_points += points
-    end
-    win_team, total_points = team_name, team_points if team_points > total_points
+def winning_team 
+  home_points = []
+  game_hash[:home][:players].each do |player|
+    home_points << player[:points]
   end
-  return win_team
+  away_points = []
+  game_hash[:away][:players].each do |player|
+    away_points << player[:points]
+  end
+  best_team = []
+  if home_points.reduce(:+) > away_points.reduce(:+)
+    best_team = game_hash[:home][:team_name]
+  else
+    best_team = game_hash[:away][:team_name]
+  end
+  best_team
 end
 
 def player_with_longest_name
